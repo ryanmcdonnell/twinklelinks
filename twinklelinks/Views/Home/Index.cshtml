@@ -1,0 +1,25 @@
+﻿@using TweetSharp;
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>TwinkleLinks</h2>
+
+<p>Hello, @ViewBag.TwitterUsername!</p>
+
+<h3>URLs from your recent favorites</h3>
+
+@foreach (TwitterStatus tweet in ViewBag.Favorites)
+{
+    if(tweet.Entities.Urls.Count > 0)
+    {
+        <p>
+            @foreach(TwitterUrl url in tweet.Entities.Urls)
+            {
+                <a href="@url.Value" target="_blank">@url.Value</a> 
+            }
+            <br />
+            <small>(@tweet.Text)<br />@String.Format("{0:d} {0:t}", tweet.CreatedDate)</small>
+        </p>
+    }
+}
